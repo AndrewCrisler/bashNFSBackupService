@@ -1,4 +1,5 @@
 config.txt
 
 #ignoring my test nfs folder
-test_share
+test_share/share/*
+test_share/backup/*
