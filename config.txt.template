@@ -1,0 +1,3 @@
+nfs_folder_dir=<your_folder_location>
+save_dir=<save_folder_location>
+save_interval=<save_interval_symbol>
