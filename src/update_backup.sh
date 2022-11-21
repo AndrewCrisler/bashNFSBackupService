@@ -10,7 +10,7 @@ backupFolderLoc=$2
 timestamp=$3
 
 if ! ls -A1q "$sharedFolderLoc" | grep -q .; then 
-    echo "$sharedFolderLoc appears to not be mounted - directory was empty. Stopping backup"
+    echo "$sharedFolderLoc appears to not be mounted - directory was empty. Stopping backup" 1>&2;
     exit 2
 fi
 
@@ -21,7 +21,7 @@ echo "Saving files to $backupFolderPath"
 cp -r "$sharedFolderLoc" "$backupFolderPath"
 
 if [ -z "$(ls -a $backupFolderPath)" ]; then 
-    echo "something went wrong copying files, the backup folder: $backupFolderPath is empty. Skipping removal of old saves"
+    echo "something went wrong copying files, the backup folder: $backupFolderPath is empty. Skipping removal of old saves" 1>&2;
     exit 3
 fi
 
