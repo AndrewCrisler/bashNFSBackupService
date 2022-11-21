@@ -1,1 +1,4 @@
 config.txt
+
+#ignoring my test nfs folder
+test_share
