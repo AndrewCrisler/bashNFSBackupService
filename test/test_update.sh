@@ -4,13 +4,13 @@
 # the test set should be run after the setup.sh file has been ran in the test_share folder
 # and there is no mounted shared folder in share
 
-#TEST: test creating backup with no prior backups
-echo "TEST: test creating backup with no prior backups"
+#TEST: creating backup with no prior backups
+echo "TEST: creating backup with no prior backups"
 
 #arrange
 touch ../test_share/share/test_file.txt
 
-rm -r ../test_share/backup/*
+ls -A1q ../test_share/backup | grep -q . && rm -r ../test_share/backup/* #if files exist, remove them
 
 #act
 cd ../ && bash src/update_backup.sh test_share/share test_share/backup 1234567 && cd test
@@ -28,7 +28,7 @@ echo "TEST: creating backup with a prior backup"
 #arrange
 touch ../test_share/share/test_file.txt
 
-rm -r ../test_share/backup/*
+ls -A1q ../test_share/backup | grep -q . && rm -r ../test_share/backup/* #if files exist, remove them
 
 #act
 cd ../ && bash src/update_backup.sh test_share/share test_share/backup 1234560 && cd test
@@ -50,8 +50,9 @@ fi
 echo "TEST: do not backup when backup does not exist"
 
 #arrange
-rm -r ../test_share/backup/*
-rm -r ../test_share/share/*
+ls -A1q ../test_share/share | grep -q . && rm -r ../test_share/share/* #if files exist, remove them
+ls -A1q ../test_share/backup | grep -q . && rm -r ../test_share/backup/* #if files exist, remove them
+
 
 #act
 cd ../ && bash src/update_backup.sh test_share/share test_share/backup 1234569; exitCode=$? && cd test
@@ -69,5 +70,5 @@ else
 fi
 
 #clean up
-ls -A1q ../test_share/share | grep -q . && rm -r ../test_share/backup/* #if files exist, remove them
+ls -A1q ../test_share/share | grep -q . && rm -r ../test_share/share/* #if files exist, remove them
 ls -A1q ../test_share/backup | grep -q . && rm -r ../test_share/backup/* #if files exist, remove them
