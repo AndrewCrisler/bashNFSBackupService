@@ -1,4 +1,5 @@
 config.txt
+update_nfs.service
 
 #ignoring my test nfs folder
 test_share/share/*

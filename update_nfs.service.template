@@ -1,0 +1,11 @@
+[Unit]
+Description=Starts main bash script to check if backup is scheduled and create backup if so.
+After=suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target network-online.target <your_nfs_mount_service>
+
+[Service]
+WorkingDirectory=/path/to/project_root_dir
+ExecStart=/path/to/my_user_script
+User=my_user_name
+
+[Install]
+WantedBy=suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target
