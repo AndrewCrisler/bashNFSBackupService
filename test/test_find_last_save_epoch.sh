@@ -41,7 +41,7 @@ else
     echo -e "\nFAIL: exit code was expected to be 0 but was not - exit code was: $exitCode\n"
 fi
 
-#TEST: multiple saves preset
+#TEST: multiple saves present
 echo "TEST: one save present"
 
 #arrange

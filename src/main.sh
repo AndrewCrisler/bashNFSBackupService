@@ -4,9 +4,17 @@
 # the current backup is expired (older than the period set in the config) and if so, it will
 # handle creating a new backup and cleaning up the old backup.
 
-# arg 1 - TESTING ONLY - when present, uses the integer as the current epoch time instead of getting it from the current_time bash script
+# arg 1 - when present, uses the string as a path to a different config file. Path should be relitive to project root repo
+# arg 2 - TESTING ONLY - when present, uses the integer as the current epoch time instead of getting it from the current_time bash script
+
 if [ ! -z "$1" ]; then
-    currentEpoch=$1
+    configPath=$1
+else
+    configPath="config.txt"
+fi
+
+if [ ! -z "$2" ]; then
+    currentEpoch=$2
 else 
     currentEpoch=$(bash src/current_time.sh)
 fi
@@ -42,10 +50,13 @@ do
             echo "unknown option: $value"
             ;;
     esac
-done < "config.txt"
+done < $configPath
 
 if [[ $nfsFolderDirExists == "false" ]] || [[ $backupDirExists == "false" ]] || [[ $backupIntervalExists == "false" ]]; then
     echo "one or more required keys were missing in the config. Please make sure all lines are present in the config.txt file that were present in the template. Aborting backup" 1>&2
+    echo "nfs_folder_dir exists: $nfsFolderDirExists" 1>&2
+    echo "backup_dir exists: $backupDirExists" 1>&2
+    echo "backup_interval exists: $backupIntervalExists" 1>&2
     exit 6
 fi
 
